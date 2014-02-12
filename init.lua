@@ -32,27 +32,28 @@ local function affichage(pos)
 	
 	local radians=(math.pi/2)*(node.param2)
 	
-	
-	--Premier ligne
-	if not(mitem1==nil) then
-		holospwan({x=pos.x-hud[node.param2+1][1],y=pos.y+0.33,z=pos.z-hud[node.param2+1][3]},mitem1["name"])
-		objet = minetest.add_entity({x=pos.x,y=pos.y+0.33,z=pos.z},"mini_economique:"..math.floor(mitem1["count"]/10).."")
-		objet:setyaw(radians)
-		objet = minetest.add_entity({x=pos.x+hud[node.param2+1][2],y=pos.y+0.33,z=pos.z+hud[node.param2+1][4]},"mini_economique:"..mitem1["count"]-(math.floor(mitem1["count"]/10)*10).."")
-		objet:setyaw(radians)
-	end
-		if not(mitem2==nil) and not(mitem1==nil) then
-		objet = minetest.add_entity({x=pos.x+hud[node.param2+1][1],y=pos.y+0.33,z=pos.z+hud[node.param2+1][3]},"mini_economique:buy")
-		objet:get_luaentity():set_item({x=pos.x,z=pos.z,y=pos.y-1})
-		objet:setyaw(radians)
-	end
-	--Deuxieme ligne
-	if not(mitem2==nil) then
-		holospwan({x=pos.x-hud[node.param2+1][1],y=pos.y,z=pos.z-hud[node.param2+1][3]},mitem2["name"])
-		objet = minetest.add_entity({x=pos.x,y=pos.y,z=pos.z},"mini_economique:"..math.floor(mitem2["count"]/10).."")
-		objet:setyaw(radians)
-		objet = minetest.add_entity({x=pos.x+hud[node.param2+1][2],y=pos.y,z=pos.z+hud[node.param2+1][4]},"mini_economique:"..mitem2["count"]-(math.floor(mitem2["count"]/10)*10).."")
-		objet:setyaw(radians)
+	if node.param2>=0 and node.param2<=3 then
+		--Premier ligne
+		if not(mitem1==nil) then
+			holospwan({x=pos.x-hud[node.param2+1][1],y=pos.y+0.33,z=pos.z-hud[node.param2+1][3]},mitem1["name"])
+			objet = minetest.add_entity({x=pos.x,y=pos.y+0.33,z=pos.z},"mini_economique:"..math.floor(mitem1["count"]/10).."")
+			objet:setyaw(radians)
+			objet = minetest.add_entity({x=pos.x+hud[node.param2+1][2],y=pos.y+0.33,z=pos.z+hud[node.param2+1][4]},"mini_economique:"..mitem1["count"]-(math.floor(mitem1["count"]/10)*10).."")
+			objet:setyaw(radians)
+		end
+			if not(mitem2==nil) and not(mitem1==nil) then
+			objet = minetest.add_entity({x=pos.x+hud[node.param2+1][1],y=pos.y+0.33,z=pos.z+hud[node.param2+1][3]},"mini_economique:buy")
+			objet:get_luaentity():set_item({x=pos.x,z=pos.z,y=pos.y-1})
+			objet:setyaw(radians)
+		end
+		--Deuxieme ligne
+		if not(mitem2==nil) then
+			holospwan({x=pos.x-hud[node.param2+1][1],y=pos.y,z=pos.z-hud[node.param2+1][3]},mitem2["name"])
+			objet = minetest.add_entity({x=pos.x,y=pos.y,z=pos.z},"mini_economique:"..math.floor(mitem2["count"]/10).."")
+			objet:setyaw(radians)
+			objet = minetest.add_entity({x=pos.x+hud[node.param2+1][2],y=pos.y,z=pos.z+hud[node.param2+1][4]},"mini_economique:"..mitem2["count"]-(math.floor(mitem2["count"]/10)*10).."")
+			objet:setyaw(radians)
+		end
 	end
 end
 
@@ -119,6 +120,7 @@ minetest.register_node("mini_economique:socle", {
 				minetest.get_meta(pos):set_string("item2",minetest.serialize(item))
 				affichage (pos)
 			end
+		end
 	end,
 	can_dig = function(pos,player)
 		local mplayer = minetest.get_meta(pos):get_string("player")
