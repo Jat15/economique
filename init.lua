@@ -67,7 +67,7 @@ minetest.register_abm({
 		local mitem1 = minetest.deserialize(minetest.get_meta(pos):get_string("item1"))
 		local menservice = minetest.get_meta(pos):get_int("enservice")
 		if not(menservice==0) and (os.difftime(os.time(),menservice)>30 or os.difftime(os.time(),menservice)<0) then
-			minetest.get_meta(pos):set_int("enservice", nil)
+			minetest.get_meta(pos):set_int("enservice", )
 			local pos = {x=pos.x,y=pos.y+1,z=pos.z}
 			local listeobj=minetest.get_objects_inside_radius(pos, 0.60)
 			if table.getn(listeobj)>=1 then
